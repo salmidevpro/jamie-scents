@@ -11,6 +11,40 @@ document.addEventListener('DOMContentLoaded', function() {
         hamburger.addEventListener('click', function() {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
+            // Inject cart link into mobile menu when opened
+            if (navMenu.classList.contains('active')) {
+                if (!navMenu.querySelector('.nav-cart-item')) {
+                    const cartLink = document.querySelector('.cart-link');
+                    const li = document.createElement('li');
+                    li.className = 'nav-cart-item';
+                    const a = document.createElement('a');
+                    a.href = cartLink ? cartLink.getAttribute('href') : 'shop.html';
+                    a.className = 'nav-link nav-cart-link';
+                    a.setAttribute('aria-label', 'View cart');
+                    // copy inner HTML from header cart (icon + count)
+                    if (cartLink) {
+                        a.innerHTML = cartLink.innerHTML;
+                    } else {
+                        a.textContent = 'Cart';
+                    }
+                    // clicking the menu cart should trigger same behavior as header cart
+                    a.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const orig = document.querySelector('.cart-link');
+                        // close menu
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        if (orig) orig.click();
+                        else window.location.href = 'shop.html';
+                    });
+                    li.appendChild(a);
+                    navMenu.appendChild(li);
+                }
+            } else {
+                // remove the injected cart link when menu closes
+                const injected = navMenu.querySelector('.nav-cart-item');
+                if (injected) injected.remove();
+            }
         });
 
         // Close menu when a link is clicked

@@ -183,7 +183,7 @@ a:hover {
 
 .cart-count {
     position: absolute;
-    top: -8px;
+    top: -4px;
     right: -8px;
     min-width: 18px;
     height: 18px;
@@ -1590,8 +1590,12 @@ section {
     transform: translateY(-3px);
 }
 
-.footer-bottom {
+ .footer-bottom {
     text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+}
 
 .footer-bottom a.footer-credit-link {
     color: rgba(255, 255, 255, 0.8);
@@ -1601,10 +1605,6 @@ section {
 
 .footer-bottom a.footer-credit-link:hover {
     color: var(--primary-color);
-}
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.7);
 }
 
 /* ============================================
@@ -1624,6 +1624,11 @@ section {
         display: flex;
     }
 
+    /* Hide header cart on small screens; show inside menu when opened */
+    .cart-link {
+        display: none;
+    }
+
     .nav-menu {
         position: absolute;
         top: 70px;
@@ -1637,6 +1642,7 @@ section {
         gap: 0;
         box-shadow: var(--shadow-md);
         list-style: none;
+        z-index: 1002;
     }
 
     .nav-menu.active {
