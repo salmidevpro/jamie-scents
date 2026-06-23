@@ -255,3 +255,28 @@ function initializePageAnimations() {
         el.style.animationDelay = `${index * 0.05}s`;
     });
 }
+
+function setFooterYear() {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+}
+
+function updateCartCountDisplay(count) {
+    document.querySelectorAll('.cart-count').forEach(el => {
+        el.textContent = count;
+    });
+}
+
+function loadCartCount() {
+    const storedCart = localStorage.getItem('jamieScentsCart');
+    const cartItems = storedCart ? JSON.parse(storedCart) : [];
+    const count = cartItems.reduce((total, item) => total + item.quantity, 0);
+    updateCartCountDisplay(count);
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+    setFooterYear();
+    loadCartCount();
+});
